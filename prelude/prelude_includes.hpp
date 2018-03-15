@@ -1,0 +1,17 @@
+#ifndef __PRELUDE_INCLUDES_HPP__
+#define __PRELUDE_INCLUDES_HPP__
+
+#include "prelude/const.hpp"
+#include "prelude/compose.hpp"
+#include "prelude/list.hpp"
+#include "prelude/cons.hpp"
+#include "prelude/get.hpp"
+#include "prelude/foldl.hpp"
+#include "prelude/foldr.hpp"
+#include "prelude/if.hpp"
+#include "prelude/flip.hpp"
+#include "prelude/map.hpp"
+#include "prelude/dollar.hpp"
+#include "prelude/fix.hpp"
+
+#endif // __PRELUDE_INCLUDES_HPP__
