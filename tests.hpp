@@ -104,6 +104,10 @@ static_assert(is_same_v<
                 eval<map,eval<flip,cons,list<>>,list<int,char>>
               >);
 
+// eq
+static_assert(is_same_v<std::true_type,eval<eq,int,int>>);
+static_assert(is_same_v<std::false_type,eval<eq,int,char>>);
+
 using map_ = eval<compose,eval<flip,foldr,list<>>,eval<compose,cons>>;
 
 static_assert(is_same_v<list<>,eval<map_,id,list<>>>);

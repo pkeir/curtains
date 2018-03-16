@@ -40,7 +40,7 @@ using is_same_tt    = typename tt<std::is_same,T,U>::type;
 template <class T>
 using is_pointer_tt = typename tt<std::is_pointer,T>::type;
 
-} //namespace  curtains
+} // namespace  curtains
 
 #endif // __UTIL_HPP__
 

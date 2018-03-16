@@ -31,6 +31,9 @@ namespace curtains::impl {
   template <class T, class U>
   using divide_t   = typename divide_c<T,U>::type;
 
+  template <class T, class U>
+  using eq_t       = typename std::is_same<T,U>::type;
+
   template <class N>
   using fact_t     = typename fact_c<N>::type;
 
@@ -44,6 +47,7 @@ namespace curtains::v {
   using subtract = quote<impl::subtract_t>;
   using mul      = quote<impl::mul_t>;
   using divide   = quote<impl::divide_t>;
+  using eq       = quote<impl::eq_t>;
   using fact     = quote<impl::fact_t>;
 
 } // namespace curtains::v
@@ -56,6 +60,7 @@ namespace curtains::n {
   using subtract = bases<v::subtract,ic<2>>;
   using mul      = bases<v::mul,ic<2>>;
   using divide   = bases<v::divide,ic<2>>;
+  using eq       = bases<v::eq,ic<2>>;
   using fact     = bases<v::fact,ic<1>>;
 
 } // namespace curtains::v
