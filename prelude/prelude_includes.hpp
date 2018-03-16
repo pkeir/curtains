@@ -13,5 +13,6 @@
 #include "prelude/map.hpp"
 #include "prelude/dollar.hpp"
 #include "prelude/fix.hpp"
+#include "prelude/tree.hpp"
 
 #endif // __PRELUDE_INCLUDES_HPP__

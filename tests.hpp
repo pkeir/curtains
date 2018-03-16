@@ -306,6 +306,27 @@ static_assert(is_same_v<int,grip<ic<-1>>::type>);
 static_assert(is_same_v<eval<const_,int>,eval<impl::curry<const_,int>>>);
 #endif
 
+// tree
+static_assert(is_same_v<tree<int,list<>>,eval<fmap_tree,id,tree<int,list<>>>>);
+static_assert(is_same_v<
+                tree<char,list<>>,
+                eval<fmap_tree,eval<const_,char>,tree<int,list<>>>
+              >);
+static_assert(is_same_v<
+                tree<char,list<tree<char,list<>>,tree<
+                                                   char,
+                                                   list<tree<char,list<>>>
+                                                 >>>,
+                eval<
+                  fmap_tree,
+                  eval<const_,char>,
+                  tree<char,list<tree<long,list<>>,tree<
+                                                     int,
+                                                     list<tree<void,list<>>>
+                                                   >>>
+                >
+              >);
+
 #if 0
 // zero - zero arity function tests
 static_assert(is_same_v<id,eval<zero_id>>);
