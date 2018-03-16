@@ -5,6 +5,15 @@
 
 namespace curtains::impl {
 
+  /* Ye olde way
+  template <class F, class G>
+  struct compose_t
+  {
+    template <typename T>
+    using m_invoke = eval<F,eval<G,T>>;
+  };
+  */
+
   template <class F, class G, class T>
   using compose_t = eval<F,eval<G,T>>;
 
