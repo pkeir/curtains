@@ -20,6 +20,7 @@ namespace static_asserts {
 using namespace curtains;
 using std::is_same_v;
 
+static_assert(is_same_v<id,eval<>>);
 static_assert(is_same_v<int,eval<int>>);
 
 // id
