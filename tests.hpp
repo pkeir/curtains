@@ -192,6 +192,7 @@ static_assert(is_same_v<int,eval<
                               list<rec_err,ic<3>>,
                               list<int>
                             >>);
+// eval<rec_err,ic<3>> k;
 
 // ski combinators (S, K and I)
 // Wikipedia: SKSK = K and S(K(SI))K reverses the following two terms

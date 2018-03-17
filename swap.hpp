@@ -16,7 +16,7 @@ namespace curtains::impl {
 
 namespace curtains::v {
 
-  using swap = quote<impl::swap_t>;
+  using swap = quote_c<impl::swap_c>;
 
 } // namespace curtains::v
 

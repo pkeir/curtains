@@ -18,7 +18,7 @@ namespace curtains::impl {
 
 namespace curtains::v {
 
-  using rec_err = quote<impl::rec_err_t>;
+  using rec_err = quote_c<impl::rec_err_c>;
 
 } // namespace curtains::v
 

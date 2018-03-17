@@ -27,9 +27,9 @@ namespace curtains::impl {
 
 namespace curtains::v {
 
-  using fix_fact    = quote<impl::fix_fact_t>;
-  using fix_foldr   = quote<impl::fix_foldr_t>;
-  using fix_fact_if = quote<impl::fix_fact_if_t>;
+  using fix_fact    = quote_c<impl::fix_fact_c>;
+  using fix_foldr   = quote_c<impl::fix_foldr_c>;
+  using fix_fact_if = quote_c<impl::fix_fact_if_c>;
 
 } // namespace curtains::v
 

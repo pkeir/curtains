@@ -41,14 +41,14 @@ namespace curtains::impl {
 
 namespace curtains::v {
 
-  using pred     = quote<impl::pred_t>;
-  using succ     = quote<impl::succ_t>;
-  using add      = quote<impl::add_t>;
-  using subtract = quote<impl::subtract_t>;
-  using mul      = quote<impl::mul_t>;
-  using divide   = quote<impl::divide_t>;
-  using eq       = quote<impl::eq_t>;
-  using fact     = quote<impl::fact_t>;
+  using pred     = quote_c<impl::pred_c>;
+  using succ     = quote_c<impl::succ_c>;
+  using add      = quote_c<impl::add_c>;
+  using subtract = quote_c<impl::subtract_c>;
+  using mul      = quote_c<impl::mul_c>;
+  using divide   = quote_c<impl::divide_c>;
+  using eq       = quote_c<std::is_same>;    // move somewhere more general
+  using fact     = quote_c<impl::fact_c>;
 
 } // namespace curtains::v
 
