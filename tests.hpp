@@ -23,6 +23,13 @@ using std::is_same_v;
 
 static_assert(is_same_v<id,eval<>>);
 static_assert(is_same_v<int,eval<int>>);
+#ifndef CURTAINS_N
+static_assert(is_same_v<int*,eval<quote<std::add_pointer_t>,int>>);
+static_assert(is_same_v<int*,eval<quote_c<std::add_pointer>,int>>);
+#else
+using ap_qn = bases<quote<std::add_pointer_t>,ic<1>>;
+static_assert(is_same_v<int*,eval<ap_qn,int>>);
+#endif
 
 // id
 static_assert(is_same_v<id,eval<id,id>>);
