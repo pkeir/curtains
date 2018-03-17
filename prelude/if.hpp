@@ -21,7 +21,7 @@ namespace curtains::impl {
 
 namespace curtains::v {
 
-  using if_ = quote<impl::if_t>;
+  using if_ = quote_c<impl::if_c>;
 
 } // namespace curtains::v
 

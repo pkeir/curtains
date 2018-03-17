@@ -5,7 +5,7 @@
 
 namespace curtains::v {
 
-  using id = quote<impl::id_t>;
+  using id = quote_c<impl::id_c>;
 
 } // namespace curtains::v
 

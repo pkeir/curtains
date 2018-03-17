@@ -15,7 +15,7 @@ namespace curtains::impl {
 
 namespace curtains::v {
 
-  using fix = quote<impl::fix_t>;
+  using fix = quote_c<impl::fix_c>;
 
 } // namespace curtains::v
 

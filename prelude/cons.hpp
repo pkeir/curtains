@@ -18,7 +18,7 @@ namespace curtains::impl {
 
 namespace curtains::v {
 
-  using cons = quote<impl::cons_t>;
+  using cons = quote_c<impl::cons_c>;
 
 } // namespace curtains::v
 

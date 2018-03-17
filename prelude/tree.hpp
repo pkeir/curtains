@@ -28,7 +28,7 @@ namespace curtains::impl {
 
 namespace curtains::v {
 
-  using fmap_tree = quote<impl::fmap_tree_t>;
+  using fmap_tree = quote_c<impl::fmap_tree_c>;
 
 } // namespace curtains::v
 

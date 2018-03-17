@@ -15,7 +15,7 @@ namespace curtains::impl {
 
 namespace curtains::v {
 
-  using get = quote<impl::get_t>;
+  using get = quote_c<impl::get_c>;
 
 } // namespace curtains::v
 

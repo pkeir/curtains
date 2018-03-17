@@ -23,7 +23,7 @@ namespace curtains::impl {
 
 namespace curtains::v {
   
-  using map  = quote<impl::map_t>;
+  using map  = quote_c<impl::map_c>;
 
 } // namespace curtains::v
 

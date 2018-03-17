@@ -96,6 +96,16 @@ static_assert(is_same_v<
                 eval<id_foldr_test,list<int,char>>
               >);
 
+using map_ = eval<compose,eval<flip,foldr,list<>>,eval<compose,cons>>;
+
+static_assert(is_same_v<list<>,eval<map_,id,list<>>>);
+static_assert(is_same_v<list<int>,eval<map_,id,list<int>>>);
+static_assert(is_same_v<list<int,char>,eval<map_,id,list<int,char>>>);
+static_assert(is_same_v<
+                list<list<int>,list<char>>,
+                eval<map_,eval<flip,cons,list<>>,list<int,char>>
+              >);
+
 // map
 static_assert(is_same_v<list<>,eval<map,id,list<>>>);
 static_assert(is_same_v<list<int>,eval<map,id,list<int>>>);
@@ -108,16 +118,6 @@ static_assert(is_same_v<
 // eq
 static_assert(is_same_v<std::true_type,eval<eq,int,int>>);
 static_assert(is_same_v<std::false_type,eval<eq,int,char>>);
-
-using map_ = eval<compose,eval<flip,foldr,list<>>,eval<compose,cons>>;
-
-static_assert(is_same_v<list<>,eval<map_,id,list<>>>);
-static_assert(is_same_v<list<int>,eval<map_,id,list<int>>>);
-static_assert(is_same_v<list<int,char>,eval<map_,id,list<int,char>>>);
-static_assert(is_same_v<
-                list<list<int>,list<char>>,
-                eval<map_,eval<flip,cons,list<>>,list<int,char>>
-              >);
 
 // flip
 static_assert(is_same_v<int,eval<flip,const_,float,int>>);

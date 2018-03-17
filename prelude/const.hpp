@@ -27,10 +27,10 @@ namespace curtains::impl {
 
 namespace curtains::v {
 
-  using const_  = quote<impl::const_t>;
-  using const2  = quote<impl::const_t>;
-  using const3  = quote<impl::const3_t>;
-  using constv  = quote<impl::constv_t>;
+  using const_  = quote_c<impl::const_c>;
+  using const2  = quote_c<impl::const_c>;
+  using const3  = quote_c<impl::const3_c>;
+  using constv  = quote_c<impl::constv_c>;
 
 } // namespace curtains::v
 

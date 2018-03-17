@@ -15,7 +15,7 @@ namespace curtains::impl {
 
 namespace curtains::v {
 
-  using foldr = quote<impl::foldr_t>;
+  using foldr = quote_c<impl::foldr_c>;
 
 } // namespace curtains::v
 
