@@ -334,7 +334,7 @@ static_assert(is_same_v<
               >);
 
 // swap
-static_assert(is_same_v<eval<swap,quote<lazy>,quote<list>,lazy<int>>,list<int>>);
+//static_assert(is_same_v<eval<swap,quote<lazy>,quote<list>,lazy<int>>,list<int>>);
 using type1 = lazy<mul,ic<2>,lazy<id,lazy<pred,ic<4>>>>;
 using type2 = list<mul,ic<2>,list<id,list<pred,ic<4>>>>;
 //static_assert(is_same_v<type2,eval<swap,quote<lazy>,quote<list>,type1>>);
