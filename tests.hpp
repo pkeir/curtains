@@ -10,6 +10,7 @@
 #include "zero.hpp"
 #include "fix_fun.hpp"
 #include "rec_err.hpp"
+#include "swap.hpp"
 
 // g++ -std=c++1z tests.hpp && g++ -DCURTAINS_N -std=c++1z tests.hpp
 // or
@@ -331,6 +332,13 @@ static_assert(is_same_v<
                                                    >>>
                 >
               >);
+
+// swap
+static_assert(is_same_v<eval<swap,quote<lazy>,quote<list>,lazy<int>>,list<int>>);
+using type1 = lazy<mul,ic<2>,lazy<id,lazy<pred,ic<4>>>>;
+using type2 = list<mul,ic<2>,list<id,list<pred,ic<4>>>>;
+//static_assert(is_same_v<type2,eval<swap,quote<lazy>,quote<list>,type1>>);
+//static_assert(is_same_v<ic<6>,eval<swap,quote<lazy>,quote<eval>,type1>>);
 
 #if 0
 // zero - zero arity function tests
