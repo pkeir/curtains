@@ -104,17 +104,13 @@ static_assert(is_same_v<
                 eval<id_foldr_test,list<int,char>>
               >);
 
-using map_ = eval<compose,eval<flip,foldr,list<>>,eval<compose,cons>>;
-
-static_assert(is_same_v<list<>,eval<map_,id,list<>>>);
-static_assert(is_same_v<list<int>,eval<map_,id,list<int>>>);
-static_assert(is_same_v<list<int,char>,eval<map_,id,list<int,char>>>);
-static_assert(is_same_v<
-                list<list<int>,list<char>>,
-                eval<map_,eval<flip,cons,list<>>,list<int,char>>
-              >);
-
 // map
+using map_  = eval<compose,eval<flip,foldr,list<>>,eval<compose,cons>>;
+template <class F>
+using map__ = eval<foldr,eval<compose,cons,F>,list<>>;
+
+template <class map>
+struct map_tests : ic<true> {
 static_assert(is_same_v<list<>,eval<map,id,list<>>>);
 static_assert(is_same_v<list<int>,eval<map,id,list<int>>>);
 static_assert(is_same_v<list<int,char>,eval<map,id,list<int,char>>>);
@@ -122,6 +118,14 @@ static_assert(is_same_v<
                 list<list<int>,list<char>>,
                 eval<map,eval<flip,cons,list<>>,list<int,char>>
               >);
+};
+static_assert(map_tests<map>::value);
+static_assert(map_tests<map_>::value);
+#ifndef CURTAINS_N
+static_assert(map_tests<quote<map__>>::value);
+#else
+static_assert(map_tests<bases<quote<map__>,ic<1>>>::value);
+#endif
 
 // eq
 static_assert(is_same_v<std::true_type,eval<eq,int,int>>);
