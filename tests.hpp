@@ -23,6 +23,7 @@ using std::is_same_v;
 
 static_assert(is_same_v<id,eval<>>);
 static_assert(is_same_v<int,eval<int>>);
+
 #ifndef CURTAINS_N
 static_assert(is_same_v<int*,eval<quote<std::add_pointer_t>,int>>);
 static_assert(is_same_v<int*,eval<quote_c<std::add_pointer>,int>>);
@@ -103,6 +104,7 @@ static_assert(is_same_v<
                 list<int,char>,
                 eval<id_foldr_test,list<int,char>>
               >);
+static_assert(is_same_v<char,eval<foldr,id,char,list<id>>>);
 
 // map
 using map_  = eval<compose,eval<flip,foldr,list<>>,eval<compose,cons>>;
