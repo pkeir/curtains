@@ -8,20 +8,11 @@ namespace curtains::impl {
   template <class,class>
     struct fix_fact_c;
 
-  template <class F, class N>
-  using fix_fact_t = typename fix_fact_c<F,N>::type;
-
   template <class, class, class, class>
     struct fix_foldr_c;
 
-  template <class Y, class F, class Z, class T>
-  using fix_foldr_t = typename fix_foldr_c<Y,F,Z,T>::type;
-
   template <class,class>
     struct fix_fact_if_c;
-
-  template <class F, class N>
-  using fix_fact_if_t = typename fix_fact_if_c<F,N>::type;
 
 } // namespace curtains::impl
 

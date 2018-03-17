@@ -8,9 +8,6 @@ namespace curtains::impl {
   template <class,class>
     struct fix_c;
 
-  template <class F, class X>
-  using fix_t = typename fix_c<F,X>::type;
-
 } // namespace curtains::impl
 
 namespace curtains::v {

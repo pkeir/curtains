@@ -12,9 +12,6 @@ namespace curtains::impl::n {
   template <class T, class N>
   struct arity_c<bases<T,N>> : id_c<N>     {};
 
-  template <class T>
-  using arity_t = typename arity_c<T>::type;
-
 } // namespace curtains::impl:n
 
 namespace curtains::v {
@@ -25,7 +22,7 @@ namespace curtains::v {
 
 namespace curtains::n {
 
-  using arity = bases<quote<impl::n::arity_t>,ic<1>>;
+  using arity = bases<quote_c<impl::n::arity_c>,ic<1>>;
 
 } // namespace curtains::n
 

@@ -21,9 +21,6 @@ namespace curtains::impl {
   template <class, class>
     struct fmap_tree_c;
 
-  template <class F, class T>
-  using fmap_tree_t = typename fmap_tree_c<F,T>::type;
-
 } // namespace curtains::impl
 
 namespace curtains::v {

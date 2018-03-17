@@ -8,9 +8,6 @@ namespace curtains::impl {
   template <class, class, class>
     struct foldr_c;
 
-  template <class F, class Z, class T>
-  using foldr_t = typename foldr_c<F,Z,T>::type;
-
 } // namespace curtains::impl
 
 namespace curtains::v {

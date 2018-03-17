@@ -8,9 +8,6 @@ namespace curtains::impl {
   template <class, class>
     struct get_c;
 
-  template <class T, class U>
-  using get_t = typename get_c<T,U>::type;
-
 } // namespace curtains::impl
 
 namespace curtains::v {

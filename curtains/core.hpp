@@ -48,19 +48,16 @@ namespace curtains::impl {
   };
 
   template <class, class Z, class ...>
-  struct ifoldl                         : id_c<Z> {};
+  struct ifoldl_c              : id_c<Z> {};
 
   template <class F, class Z, class T, class ...Ts>
-  struct ifoldl<F,Z,T,Ts...>            : ifoldl<F,invoke<F,Z,T>,Ts...> {};
-
-  template <class F, class Z, class ...Ts>
-  using ifoldl_t = typename ifoldl<F,Z,Ts...>::type;
+  struct ifoldl_c<F,Z,T,Ts...> : ifoldl_c<F,invoke<F,Z,T>,Ts...> {};
 
 } // namespace curtains::impl
 
 namespace curtains::impl::v {
 
-  using ifoldl   = quote<ifoldl_t>;
+  using ifoldl   = quote_c<ifoldl_c>;
 
 } // namespace curtains::impl::v
 

@@ -11,9 +11,6 @@ namespace curtains::impl {
 
   template <class> struct rec_err_c;
 
-  template <class T>
-  using rec_err_t = typename rec_err_c<T>::type;
-
 } //  namespace curtains::impl
 
 namespace curtains::v {
@@ -33,7 +30,7 @@ namespace curtains::impl {
   // template <> struct rec_err_c<ic<0>> : id_c<ic<0>> {};
 
   template <auto N>
-  struct rec_err_c<ic<N>> : id_c<rec_err_t<ic<N-1>>> {};
+  struct rec_err_c<ic<N>> : id_c<eval<rec_err,ic<N-1>>> {};
 
 } // namespace curtains::impl
 

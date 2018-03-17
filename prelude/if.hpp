@@ -14,9 +14,6 @@ namespace curtains::impl {
   template <class U, template <class ...> class TT, class ...Ts>
   struct if_c<std::false_type,U,TT<Ts...>>  : id_c<eval<Ts...>> {};
 
-  template <class T, class U, class V>
-  using if_t = typename if_c<T,U,V>::type;
-
 } // namespace curtains::impl
 
 namespace curtains::v {

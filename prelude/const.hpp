@@ -5,23 +5,10 @@
 
 namespace curtains::impl {
 
-  template <class T, class>
-  struct const_c : id_c<T> {};
-  template <class T, class>
-  struct const2_c : id_c<T> {};
-  template <class T, class, class>
-  struct const3_c : id_c<T> {};
-  template <class T, class...>
-  struct constv_c : id_c<T> {};
-
-  template <class T, class U>
-  using const_t  = typename const2_c<T,U>::type;
-  template <class T, class U>
-  using const2_t = typename const2_c<T,U>::type;
-  template <class T, class U, class V>
-  using const3_t = typename const3_c<T,U,V>::type;
-  template <class T, class ...Ts>
-  using constv_t = typename constv_c<T,Ts...>::type;
+  template <class T, class>        struct const_c  : id_c<T> {};
+  template <class T, class>        struct const2_c : id_c<T> {};
+  template <class T, class, class> struct const3_c : id_c<T> {};
+  template <class T, class...>     struct constv_c : id_c<T> {};
 
 } //  namespace curtains::impl
 

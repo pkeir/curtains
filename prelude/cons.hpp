@@ -11,9 +11,6 @@ namespace curtains::impl {
   template <class T, template <class ...> class TT, class ...Ts>
   struct cons_c<T,TT<Ts...>> : id_c<TT<T,Ts...>> {};
 
-  template <class T, class Tup>
-  using cons_t = typename cons_c<T,Tup>::type;
-
 } // namespace curtains
 
 namespace curtains::v {

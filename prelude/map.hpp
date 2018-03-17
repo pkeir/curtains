@@ -16,9 +16,6 @@ namespace curtains::impl {
   template <class, class>
     struct map_c;
 
-  template <class F, class T>
-  using map_t  = typename map_c<F,T>::type;
-
 } // namespace curtains::impl
 
 namespace curtains::v {

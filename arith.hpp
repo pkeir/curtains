@@ -13,30 +13,6 @@ namespace curtains::impl {
   template <class, class> struct divide_c;
   template <class>        struct fact_c;
 
-  template <class N>
-  using pred_t     = typename pred_c<N>::type;
-
-  template <class N>
-  using succ_t     = typename succ_c<N>::type;
-
-  template <class T, class U>
-  using add_t      = typename add_c<T,U>::type;
-
-  template <class T, class U>
-  using subtract_t = typename subtract_c<T,U>::type;
-
-  template <class T, class U>
-  using mul_t      = typename mul_c<T,U>::type;
-
-  template <class T, class U>
-  using divide_t   = typename divide_c<T,U>::type;
-
-  template <class T, class U>
-  using eq_t       = typename std::is_same<T,U>::type;
-
-  template <class N>
-  using fact_t     = typename fact_c<N>::type;
-
 } // namespace curtains::impl
 
 namespace curtains::v {

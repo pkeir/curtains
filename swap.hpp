@@ -9,9 +9,6 @@ namespace curtains::impl {
   template <class, class, class T, class = void>
     struct swap_c;
 
-  template <class F, class ...Ts>
-  using swap_t = typename swap_c<F,Ts...>::type;
-
 } // namespace curtains::impl
 
 namespace curtains::v {

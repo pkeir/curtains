@@ -3,8 +3,8 @@
 
 namespace curtains {
 
-template <class ...>
-struct list {};
+  template <class ...>
+  struct list {};
 
 } // namespace curtains
 
