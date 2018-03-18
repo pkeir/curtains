@@ -218,6 +218,31 @@ static_assert(is_same_v<
                 eval<fix,fix_foldr,cons,list<>,list<int,char,short>>
               >);
 
+#ifndef CURTAINS_N
+using fmap_reader   = compose;
+using return_reader = const_;
+template <class M, class X>
+using join_reader_t = eval<M,X,X>;
+using join_reader = quote<join_reader_t>;
+template <class M, class F>
+using bind_reader_t = eval<join_reader,eval<fmap_reader,F,M>>;
+using bind_reader = quote<bind_reader_t>;
+
+//static_assert(is_same_v<eval<bind_reader,
+static_assert(is_same_v<
+                int,
+                eval<eval<bind_reader,eval<const_,int>,const_>,char>
+              >);
+static_assert(is_same_v<
+                ic<9>,
+                eval<eval<bind_reader,eval<mul,ic<2>>,add>,ic<3>>
+              >);
+
+//template <class F>
+//struct Y : id_c<eval<F,
+
+#endif
+
 // dollar ($)
 static_assert(is_same_v<double,eval<dollar,id,double>>);
 static_assert(is_same_v<double,eval<dollar,id,id,double>>);
