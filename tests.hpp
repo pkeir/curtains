@@ -186,7 +186,7 @@ static_assert(typename impl::fix_fact_c<id,ic<7>>::type{} == 42); // 7 * 6
 /*
 
   While Haskell is happy with a unary definition of fix:
-  let rec fix f = f (fix f)
+  let fix f = f (fix f)
   ...it fails in the C++ template code above, as it does in OCaml.
   OCaml does though allow a binary formation:
   let rec fix f x = f (fix f) x
