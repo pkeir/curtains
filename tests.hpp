@@ -219,6 +219,7 @@ static_assert(is_same_v<
               >);
 
 #ifndef CURTAINS_N
+// functor and monad instance for ((->) r)
 using fmap_reader   = compose;
 using return_reader = const_;
 template <class M, class X>
@@ -228,7 +229,7 @@ template <class M, class F>
 using bind_reader_t = eval<join_reader,eval<fmap_reader,F,M>>;
 using bind_reader = quote<bind_reader_t>;
 
-//static_assert(is_same_v<eval<bind_reader,
+static_assert(is_same_v<ic<4>,eval<join_reader,add,ic<2>>>);
 static_assert(is_same_v<
                 int,
                 eval<eval<bind_reader,eval<const_,int>,const_>,char>
@@ -237,9 +238,6 @@ static_assert(is_same_v<
                 ic<9>,
                 eval<eval<bind_reader,eval<mul,ic<2>>,add>,ic<3>>
               >);
-
-//template <class F>
-//struct Y : id_c<eval<F,
 
 #endif
 
