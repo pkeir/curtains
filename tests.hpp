@@ -95,6 +95,47 @@ static_assert(eval<
 #endif
 
 // foldr
+// myreverse     xs = foldr f id xs []
+//                     where f x y = y . ((:)    x)
+
+// pf \x y -> y . ((:)    x)
+// flip (.) . (:)  ...refactor to remove operators:
+// (.) (flip (.))  (:)
+template <typename T>
+using reverse = eval<
+                  foldr,
+                  eval<compose,eval<flip,compose>,cons>,
+                  id,
+                  T,
+                  list<>
+                >;
+
+// $ pf let f x y = y . ((:) x) in \z -> foldr f id z []
+// flip (foldr (flip (.) . (:)) id) []
+using reverse_ = eval<
+                   flip,
+                   eval<foldr,eval<compose,eval<flip,compose>,cons>,id>,
+                   list<>
+                 >;
+static_assert(is_same_v<
+                list<char,float>,
+                eval<reverse_, list<float,char>>
+              >);
+
+template <class reverse>
+struct reverse_tests : ic<true> {
+  static_assert(is_same_v<list<>, eval<reverse,list<>>>);
+  static_assert(is_same_v<list<char>, eval<reverse,list<char>>>);
+  static_assert(is_same_v<list<char,float>, eval<reverse,list<float,char>>>);
+};
+
+static_assert(reverse_tests<reverse_>::value);
+#ifndef CURTAINS_N
+static_assert(reverse_tests<quote<reverse>>::value);
+#else
+static_assert(reverse_tests<bases<quote<reverse>,ic<1>>>::value);
+#endif
+
 static_assert(is_same_v<
                 list<int,char,short>,
                 eval<foldr,cons,list<>,list<int,char,short>>
