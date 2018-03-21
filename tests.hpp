@@ -246,7 +246,8 @@ using helper_t = eval<F, eval<X, X>, A>;
 using helper = quote<helper_t>;
 
 template <class F, class G>
-using Y_t = eval<eval<helper,F>,eval<helper,F>,G>;
+//using Y_t = eval<eval<helper,F>,eval<helper,F>,G>;
+using Y_t = eval<eval<flip,compose,join_reader,id>,eval<flip,compose,join_reader,id>,G>;
 
 using Y = quote<Y_t>;
 
