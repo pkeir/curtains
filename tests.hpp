@@ -230,6 +230,7 @@ using bind_reader_t = eval<join_reader,eval<fmap_reader,F,M>>;
 using bind_reader = quote<bind_reader_t>;
 
 static_assert(is_same_v<ic<4>,eval<join_reader,add,ic<2>>>);
+static_assert(is_same_v<id,eval<join_reader,id,id>>);
 static_assert(is_same_v<
                 int,
                 eval<eval<bind_reader,eval<const_,int>,const_>,char>
@@ -238,6 +239,19 @@ static_assert(is_same_v<
                 ic<9>,
                 eval<eval<bind_reader,eval<mul,ic<2>>,add>,ic<3>>
               >);
+
+template <class F, class X, class A>
+using helper_t = eval<F, eval<X, X>, A>;
+
+using helper = quote<helper_t>;
+
+template <class F, class G>
+using Y_t = eval<eval<helper,F>,eval<helper,F>,G>;
+
+using Y = quote<Y_t>;
+
+static_assert(eval<Y,fix_fact,ic<3>>{} == 6);
+
 
 #endif
 
