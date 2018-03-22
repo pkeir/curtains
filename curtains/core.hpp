@@ -30,11 +30,11 @@ namespace curtains {
     using m_invoke = typename impl::invoke_m<void,M,Us...>::type;
   };
 
-  template <template <class...> class TT>
+  template <template <class...> class M>
   struct quote_c {
     template <class...Ts>
-    using m_invoke = typename TT<Ts...>::type;   // it's fine?
-//    using m_invoke = typename impl::invoke_m<void,TT,Ts...>::type::type;
+    using m_invoke = typename M<Ts...>::type;
+//    using m_invoke = typename impl::invoke_m<void,M,Ts...>::type::type;
   };
 
 } // namespace curtains
