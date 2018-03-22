@@ -11,6 +11,7 @@
 #include "fix_fun.hpp"
 #include "rec_err.hpp"
 #include "swap.hpp"
+#include "y_combinator.hpp"
 
 // g++ -std=c++1z tests.hpp && g++ -DCURTAINS_N -std=c++1z tests.hpp
 // or
@@ -240,19 +241,7 @@ static_assert(is_same_v<
                 eval<eval<bind_reader,eval<mul,ic<2>>,add>,ic<3>>
               >);
 
-template <class F, class X, class A>
-using helper_t = eval<F, eval<X, X>, A>;
-
-using helper = quote<helper_t>;
-
-template <class F, class G>
-//using Y_t = eval<eval<helper,F>,eval<helper,F>,G>;
-using Y_t = eval<eval<flip,compose,join_reader,id>,eval<flip,compose,join_reader,id>,G>;
-
-using Y = quote<Y_t>;
-
-static_assert(eval<Y,fix_fact,ic<3>>{} == 6);
-
+static_assert(eval<y,fix_fact,ic<3>>{} == 6);
 
 #endif
 
