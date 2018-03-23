@@ -46,16 +46,13 @@ namespace curtains::impl::v {
   using invoke_if    = quote<invoke_if_t>;
 
   template <class F, class T, class = void_t<>>
-  struct curry_join_c                     : id_c<curry<F,T>> {};
+  struct curry_invoke_peek_c              : id_c<curry<F,T>> {};
 
   template <class F, class T>
-  struct curry_join_c<F,T,void_t<invoke<F>,invoke<invalid<F>,T>>>
-       : curry_join_c<invoke<F>,T> {};
+  struct curry_invoke_peek_c<F,T,void_t<invoke<F>,invoke<invalid<F>,T>>>
+       : curry_invoke_peek_c<invoke<F>,T> {};
 
-  template <class F, class T>
-  using curry_join_t = typename curry_join_c<F,T>::type;
-
-  using curry_join = quote<curry_join_t>;
+  using curry_invoke_peek = quote_c<curry_invoke_peek_c>;
 #endif
 
 } // namespace curtains::impl::v
@@ -70,7 +67,12 @@ namespace curtains::v {
 #else
   template <class ...Fs>
   using eval = impl::v::invoke_if_t<
-                 impl::invoke<impl::v::ifoldl,impl::v::curry_join,id,Fs...>
+                 impl::invoke<
+                   impl::v::ifoldl,
+                   impl::v::curry_invoke_peek,
+                   id,
+                   Fs...
+                 >
                >;
 #endif
 
