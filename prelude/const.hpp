@@ -5,19 +5,19 @@
 
 namespace curtains::impl {
 
-  template <class T, class>        struct const_c  : id_c<T> {};
-  template <class T, class>        struct const2_c : id_c<T> {};
-  template <class T, class, class> struct const3_c : id_c<T> {};
-  template <class T, class...>     struct constv_c : id_c<T> {};
+  template <class T, class>        using const_t  = T;
+  template <class T, class>        using const2_t = T;
+  template <class T, class, class> using const3_t = T;
+  template <class T, class...>     using constv_t = T;
 
 } //  namespace curtains::impl
 
 namespace curtains::v {
 
-  using const_  = quote_c<impl::const_c>;
-  using const2  = quote_c<impl::const_c>;
-  using const3  = quote_c<impl::const3_c>;
-  using constv  = quote_c<impl::constv_c>;
+  using const_  = quote<impl::const_t>;
+  using const2  = quote<impl::const_t>;
+  using const3  = quote<impl::const3_t>;
+  using constv  = quote<impl::constv_t>;
 
 } // namespace curtains::v
 
