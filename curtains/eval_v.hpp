@@ -26,25 +26,25 @@ namespace curtains::impl {
 
 namespace curtains::impl::v {
 
+#ifdef CURTAINS_V_SIMPLE
+  template <class F, class T, class = void_t<>>
+  struct curry_invoke_c                          : id_c<curry<F,T>>  {};
+
+  template <class F, class T>
+  struct curry_invoke_c<F,T,void_t<invoke<F,T>>> : id_c<invoke<F,T>> {};
+
+  using curry_invoke = quote_c<curry_invoke_c>;
+#else
   template <class F, class = void_t<>>
   struct invoke_if_c                      :        id_c<F>         {};
 
-#ifdef CURTAINS_V_SIMPLE
-  template <class F>
-  struct invoke_if_c<F,void_t<invoke<F>>> :        id_c<invoke<F>> {};
-#else
   template <class F>
   struct invoke_if_c<F,void_t<invoke<F>>> : invoke_if_c<invoke<F>> {};
-#endif
 
   template <class F>
   using invoke_if_t  = typename invoke_if_c<F>::type;
   using invoke_if    = quote<invoke_if_t>;
 
-#ifdef CURTAINS_V_SIMPLE
-  template <class F, class T>
-  using curry_join_t = invoke_if_t<curry<F,T>>;
-#else
   template <class F, class T, class = void_t<>>
   struct curry_join_c                     : id_c<curry<F,T>> {};
 
@@ -54,9 +54,9 @@ namespace curtains::impl::v {
 
   template <class F, class T>
   using curry_join_t = typename curry_join_c<F,T>::type;
-#endif
 
   using curry_join = quote<curry_join_t>;
+#endif
 
 } // namespace curtains::impl::v
 
@@ -66,7 +66,7 @@ namespace curtains::v {
 
 #ifdef CURTAINS_V_SIMPLE
   template <class ...Fs>
-  using eval = impl::invoke<impl::v::ifoldl,impl::v::curry_join,id,Fs...>;
+  using eval = impl::invoke<impl::v::ifoldl,impl::v::curry_invoke,id,Fs...>;
 #else
   template <class ...Fs>
   using eval = impl::v::invoke_if_t<
