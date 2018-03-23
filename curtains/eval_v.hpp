@@ -43,7 +43,7 @@ namespace curtains::impl::v {
 
 #ifdef CURTAINS_V_SIMPLE
   template <class F, class T>
-  using curry_join_t = curry<invoke_if_t<F>,T>;
+  using curry_join_t = invoke_if_t<curry<F,T>>;
 #else
   template <class F, class T, class = void_t<>>
   struct curry_join_c                     : id_c<curry<F,T>> {};
@@ -64,10 +64,15 @@ namespace curtains::v {
 
   using id   = quote<impl::id_t>;    // Rather place this in id.hpp
 
+#ifdef CURTAINS_V_SIMPLE
+  template <class ...Fs>
+  using eval = impl::invoke<impl::v::ifoldl,impl::v::curry_join,id,Fs...>;
+#else
   template <class ...Fs>
   using eval = impl::v::invoke_if_t<
                  impl::invoke<impl::v::ifoldl,impl::v::curry_join,id,Fs...>
                >;
+#endif
 
 } // namespace curtains::v
 
