@@ -162,6 +162,10 @@ static_assert(is_same_v<
                 list<list<int>,list<char>>,
                 eval<map,eval<flip,cons,list<>>,list<int,char>>
               >);
+static_assert(is_same_v<
+                list<void,void>,
+                eval<map,eval<const_,void>,list<int,double>>
+              >);
 };
 static_assert(map_tests<map>::value);
 static_assert(map_tests<map_>::value);
