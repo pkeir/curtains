@@ -96,6 +96,10 @@ static_assert(eval<
 #endif
 
 // foldr
+
+using sum = eval<foldr,add,ic<0>>;
+static_assert(is_same_v<ic<6>,eval<sum,list<ic<1>,ic<2>,ic<3>>>>);
+
 // myreverse     xs = foldr f id xs []
 //                     where f x y = y . ((:)    x)
 
