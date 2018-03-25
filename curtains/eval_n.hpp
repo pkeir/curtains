@@ -33,7 +33,7 @@ namespace curtains::impl::n {
     struct curry_join0_c;
 
   template <class F, class T, auto N>
-  struct curry_join0_c<bases<F,ic<N>>,T> :id_c<bases<curry<F,T>,ic<N-1>>> {};
+  struct curry_join0_c<bases<F,ic<N>>,T> : id_c<bases<curry<F,T>,ic<N-1>>> {};
 
   template <class F, class T>
   struct curry_join0_c<bases<F,ic<0>>,T> :
