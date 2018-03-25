@@ -9,7 +9,7 @@ namespace curtains::impl {
   template <class F, class G>
   struct compose_t
   {
-    template <typename T>
+    template <class T>
     using m_invoke = eval<F,eval<G,T>>;
   };
   */

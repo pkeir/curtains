@@ -43,7 +43,7 @@ namespace curtains::impl::n {
   using curry_join0_t = typename curry_join0_c<F,T>::type;
 
   template <class F>
-  struct invoke_if_c                : id_c<F>       {};
+  struct invoke_if_c                 : id_c<F>       {};
 
   template <class F>
   struct invoke_if_c<bases<F,ic<0>>> : invoke_if_c<invoke<bases<F,ic<0>>>> {};
