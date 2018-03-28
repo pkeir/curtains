@@ -75,6 +75,10 @@ static_assert(is_same_v<list<int,char>,eval<cons,int,list<char>>>);
 static_assert(is_same_v<char,eval<const_,char,double>>);
 static_assert(is_same_v<char,eval<foldl,const_,char,list<>>>);
 static_assert(is_same_v<char,eval<foldl,const_,char,list<int,float>>>);
+static_assert(is_same_v<
+                ic<-6>,
+                eval<foldl,subtract,ic<0>,list<ic<1>,ic<2>,ic<3>>>
+              >);
 
 #ifdef CURTAINS_V
 static_assert(is_same_v<
@@ -151,6 +155,31 @@ static_assert(is_same_v<
                 eval<id_foldr_test,list<int,char>>
               >);
 static_assert(is_same_v<char,eval<foldr,id,char,list<id>>>);
+
+// foldl f v xs = foldr (\x g -> (\a -> g (f a x))) id xs v
+
+// pf "\x g -> (\a -> g (f a x))"
+// flip (.) . flip f
+
+// pf "\f v xs -> foldr (\x g -> (\a -> g (f a x))) id xs v"
+// flip . flip foldr id . (flip (.) .) . flip
+// which is (by hand) ...
+// (.) flip ((.) (flip foldr id) ((.) (flip (.) .) flip))
+// which is (by hand) ...
+// (.) flip ((.) (flip foldr id) ((.) ((.) (flip (.))) flip))
+using  fldl = eval<
+                compose,
+                flip,
+                eval<
+                  compose,
+                  eval<flip,foldr,id>,
+                  eval<compose,eval<compose,eval<flip,compose>>,flip>
+                >
+              >;
+static_assert(is_same_v<
+                ic<-6>,
+                eval<fldl,subtract,ic<0>,list<ic<1>,ic<2>,ic<3>>>
+              >);
 
 // map
 using map_  = eval<compose,eval<flip,foldr,list<>>,eval<compose,cons>>;
