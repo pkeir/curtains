@@ -459,6 +459,20 @@ using type2 = list<mul,ic<2>,list<id,list<pred,ic<4>>>>;
 //static_assert(is_same_v<type2,eval<swap,quote<lazy>,quote<list>,type1>>);
 //static_assert(is_same_v<ic<6>,eval<swap,quote<lazy>,quote<eval>,type1>>);
 
+#ifndef CURTAINS_V_SIMPLE
+#ifdef CURTAINS_V
+
+// zero_constv
+static_assert(is_same_v<const_,eval<zero_constv>>);
+static_assert(is_same_v<const_,eval<zero_constv,int,bool>>);
+
+// zero_const
+static_assert(is_same_v<const_,eval<zero_const>>);
+static_assert(is_same_v<int,eval<zero_const,int,bool>>);
+
+#endif // CURTAINS_V
+#endif // CURTAINS_V_SIMPLE
+
 #if 0
 // zero - zero arity function tests
 static_assert(is_same_v<id,eval<zero_id>>);
