@@ -181,6 +181,19 @@ static_assert(is_same_v<
                 eval<fldl,subtract,ic<0>,list<ic<1>,ic<2>,ic<3>>>
               >);
 
+template <class F, class V, class XS>
+struct fldl2 {
+  template <class X, class G>
+  struct s1 {
+    template <class A>
+    struct s2 {
+      using type = eval<G,eval<F,A,X>>;
+    };
+    using type = quote_c<s2>;
+  };
+  using type = eval<foldr,quote_c<s1>,id,XS,V>;
+};
+
 // map
 using map_  = eval<compose,eval<flip,foldr,list<>>,eval<compose,cons>>;
 template <class F>
