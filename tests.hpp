@@ -194,6 +194,13 @@ struct fldl2 {
   using type = eval<foldr,quote_c<s1>,id,XS,V>;
 };
 
+#ifndef CURTAINS_N
+static_assert(is_same_v<
+                ic<-6>,
+                eval<quote_c<fldl2>,subtract,ic<0>,list<ic<1>,ic<2>,ic<3>>>
+              >);
+#endif // CURTAINS_N
+
 // map
 using map_  = eval<compose,eval<flip,foldr,list<>>,eval<compose,cons>>;
 template <class F>
