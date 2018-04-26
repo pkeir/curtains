@@ -33,8 +33,8 @@ namespace curtains {
   template <template <class...> class M>
   struct quote_c {
     template <class...Ts>
-    using m_invoke = typename M<Ts...>::type;
-//    using m_invoke = typename impl::invoke_m<void,M,Ts...>::type::type;
+    using m_invoke = typename impl::invoke_m<void,M,Ts...>::type::type;
+//  using m_invoke = typename M<Ts...>::type; // Clang needs above long form
   };
 
 } // namespace curtains

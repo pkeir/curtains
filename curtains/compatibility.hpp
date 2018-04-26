@@ -1,13 +1,13 @@
 #ifndef __COMPATIBILITY_HPP__
 #define __COMPATIBILITY_HPP__
 
-#include <type_traits>
+//#include <type_traits>
 
 #ifdef __clang__
-namespace std {
+/*namespace std {
 template <class T, class U>
 constexpr auto is_same_v = std::is_same<T,U>::value;
-}
+}*/
 #endif
 
 // Clang still has a problem with std::void_t, and the old fix can still be
