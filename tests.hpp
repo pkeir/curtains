@@ -375,12 +375,12 @@ static_assert(is_same_v<ic<3>,eval<arity,constv3>>);
 
 // Prelude> :t const
 // const :: a -> b -> a
-// Prelude> :t const . const
-// const . const :: a -> b1 -> b -> a
+// Prelude> :t const const
+// const const :: b1 -> a -> b -> a
 // curtains thinks the arity is 1:
 static_assert(is_same_v<ic<1>,eval<arity,eval<const_,const_>>>);
 // ...but, it is! or can be seen so...
-// as in... a -> b1 -> b -> a is a unary function returning a binary function.
+// as in... b1 -> a -> b -> a is a unary function returning a binary function.
 // Consider compose: in compose.hpp we define its arity to 3, but it could
 // just as well be understood as having an arity of 2.
 // At least Haskell's type checker can give a consistent arity value:
@@ -389,6 +389,7 @@ static_assert(is_same_v<ic<1>,eval<arity,eval<const_,const_>>>);
 static_assert(is_same_v<ic<1>,eval<arity,eval<compose,id,id>>>);
 static_assert(is_same_v<ic<2>,eval<arity,eval<compose,id,id,const_>>>);
 static_assert(is_same_v<ic<3>,eval<arity,eval<compose,id,id,const3>>>);
+static_assert(is_same_v<ic<2>,eval<arity,eval<const_,const_,void>>>);
 #endif // CURTAINS_N
 
 // has_type_member
