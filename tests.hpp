@@ -24,6 +24,21 @@ using std::is_same_v;
 
 static_assert(is_same_v<id,eval<>>);
 static_assert(is_same_v<int,eval<int>>);
+#ifdef CURTAINS_V
+template <class T, class U>
+struct const_test {
+  using type = T;
+};
+using const_test_q = quote_c<const_test>;
+static_assert(is_same_v<int,eval<const_test_q,int,float>>);
+struct const_test2 {
+  template <class T, class U>
+  using m_invokey = T;
+  template <class ...Ts>
+  using m_invoke = typename impl::invoke_m<void,m_invokey,Ts...>::type;
+};
+static_assert(is_same_v<int,eval<const_test2,int,float>>);
+#endif
 
 #ifndef CURTAINS_N
 static_assert(is_same_v<int*,eval<quote<std::add_pointer_t>,int>>);
