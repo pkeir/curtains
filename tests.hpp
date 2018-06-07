@@ -65,8 +65,7 @@ struct const_test4 {
 // We will need quote_c now to get the type member:
 // Todo: create a new quote variant to help with this
 using const_test4_q = quote_c<const_test4>;
-static_assert(is_same_v<int,eval<const_test4_q,int,float>>);
-using const_test4_n = bases<const_test4_q,ic<1>>;
+static_assert(is_same_v<int,eval<const_test4_q,int,float>>); // good
 
 template <class F, class G>
 struct composey
@@ -94,7 +93,7 @@ template <class T>
 struct const_test4 {
   template <class U>
   using m_invoke = T;
-  using type = bases<quote<m_invoke>,ic<1>>;
+  using type = bases<quote<m_invoke>,ic<1>>; // Alas, bases is pollution here
 };
 using const_test4_q = quote_c<const_test4>;
 using const_test4_n = bases<const_test4_q,ic<1>>;
