@@ -24,6 +24,7 @@ using std::is_same_v;
 
 static_assert(is_same_v<id,eval<>>);
 static_assert(is_same_v<int,eval<int>>);
+
 #ifdef CURTAINS_V
 template <class T, class U>
 struct const_test {
@@ -31,6 +32,7 @@ struct const_test {
 };
 using const_test_q = quote_c<const_test>;
 static_assert(is_same_v<int,eval<const_test_q,int,float>>);
+
 struct const_test2 {
   template <class T, class U>
   using m_invokey = T;
@@ -38,6 +40,65 @@ struct const_test2 {
   using m_invoke = typename impl::invoke_m<void,m_invokey,Ts...>::type;
 };
 static_assert(is_same_v<int,eval<const_test2,int,float>>);
+
+// This fails as const_test3_q cannot be applied to *both* int and float. But
+// const_test3_q *can* be applied to int; this "returns" const_test3<int>,
+// a type with an m_invoke member. This is though not quite in the correct
+// form: it isn't variadic. The m_invoke member created from quote or quote_c
+// is variadic.
+template <class T>
+struct const_test3 {
+  template <class U>
+  using m_invoke = T;
+};
+//static_assert(is_same_v<int,eval<const_test3<int>,float>>); // fails
+using const_test3_q = quote<const_test3>;
+//static_assert(is_same_v<int,eval<const_test3_q,int,float>>); // also fails
+
+template <class T>
+struct const_test4 {
+  template <class U>
+  using m_invoke = T;
+  using type = quote<m_invoke>;
+};
+
+// We will need quote_c now to get the type member:
+// Todo: create a new quote variant to help with this
+using const_test4_q = quote_c<const_test4>;
+static_assert(is_same_v<int,eval<const_test4_q,int,float>>);
+using const_test4_n = bases<const_test4_q,ic<1>>;
+
+template <class F, class G>
+struct composey
+{
+  template <class T>
+  using m_invokey = eval<F,eval<G,T>>;
+  template <class ...Ts>
+  using m_invoke = typename impl::invoke_m<void,m_invokey,Ts...>::type;
+};
+static_assert(is_same_v<float,eval<composey<id,id>,float>>);
+static_assert(is_same_v<int,eval<composey<const_,id>,int,char>>);
+
+using composey_q = quote<composey>;
+static_assert(is_same_v<int,eval<composey_q,id,id,int>>);
+static_assert(is_same_v<int,eval<composey_q,const_,id,int,char>>);
+
+  template <template <class...> class M>
+  struct naive_quote {
+    template <class ...Us>
+    using m_invoke = M<Us...>;
+  };
+#endif
+#ifdef CURTAINS_N
+template <class T>
+struct const_test4 {
+  template <class U>
+  using m_invoke = T;
+  using type = bases<quote<m_invoke>,ic<1>>;
+};
+using const_test4_q = quote_c<const_test4>;
+using const_test4_n = bases<const_test4_q,ic<1>>;
+static_assert(is_same_v<int,eval<const_test4_n,int,float>>);
 #endif
 
 #ifndef CURTAINS_N
