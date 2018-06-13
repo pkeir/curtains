@@ -13,11 +13,11 @@ struct u_seq {};
 template <class T>
 using type = typename T::type;
 
-template <class, class = void_t<>>
+template <class, class = std::void_t<>>
 struct has_type_member                             : std::false_type {};
 
 template <class T>
-struct has_type_member<T,void_t<typename T::type>> : std::true_type {};
+struct has_type_member<T,std::void_t<typename T::type>> : std::true_type {};
 
 template <class T>
 constexpr bool has_type_member_v = has_type_member<T>::value;
@@ -26,7 +26,8 @@ template <class, class, class...>
 struct can_invoke : std::false_type {};
 
 template <class F, class ...Ts>
-struct can_invoke<void_t<impl::invoke<F,Ts...>>,F,Ts...> : std::true_type {};
+struct can_invoke<std::void_t<impl::invoke<F,Ts...>>,F,Ts...>
+       : std::true_type {};
 
 template <class F, class ...Ts>
 constexpr bool can_invoke_v = can_invoke<void,F,Ts...>::value;

@@ -5,11 +5,11 @@
 
 namespace curtains::impl {
 
-  template <class, class = void_t<>>
+  template <class, class = std::void_t<>>
   struct xt : id_c<void> {};
 
   template <class T>
-  struct xt<T,void_t<typename T::type>> {};
+  struct xt<T,std::void_t<typename T::type>> {};
 
   template <class F>
   struct invalid {
@@ -27,29 +27,29 @@ namespace curtains::impl {
 namespace curtains::impl::v {
 
 #ifdef CURTAINS_V_SIMPLE
-  template <class F, class T, class = void_t<>>
-  struct curry_invoke_c                          : id_c<curry<F,T>>  {};
+  template <class F, class T, class = std::void_t<>>
+  struct curry_invoke_c                               : id_c<curry<F,T>>  {};
 
   template <class F, class T>
-  struct curry_invoke_c<F,T,void_t<invoke<F,T>>> : id_c<invoke<F,T>> {};
+  struct curry_invoke_c<F,T,std::void_t<invoke<F,T>>> : id_c<invoke<F,T>> {};
 
   using curry_invoke = quote_c<curry_invoke_c>;
 #else
-  template <class F, class = void_t<>>
-  struct invoke_if_c                      :        id_c<F>         {};
+  template <class F, class = std::void_t<>>
+  struct invoke_if_c                           :        id_c<F>         {};
 
   template <class F>
-  struct invoke_if_c<F,void_t<invoke<F>>> : invoke_if_c<invoke<F>> {};
+  struct invoke_if_c<F,std::void_t<invoke<F>>> : invoke_if_c<invoke<F>> {};
 
   template <class F>
   using invoke_if_t  = typename invoke_if_c<F>::type;
   using invoke_if    = quote<invoke_if_t>;
 
-  template <class F, class T, class = void_t<>>
+  template <class F, class T, class = std::void_t<>>
   struct curry_invoke_peek_c              : id_c<curry<F,T>> {};
 
   template <class F, class T>
-  struct curry_invoke_peek_c<F,T,void_t<invoke<F>,invoke<invalid<F>,T>>>
+  struct curry_invoke_peek_c<F,T,std::void_t<invoke<F>,invoke<invalid<F>,T>>>
        : curry_invoke_peek_c<invoke<F>,T> {};
 
   using curry_invoke_peek = quote_c<curry_invoke_peek_c>;
