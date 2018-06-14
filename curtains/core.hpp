@@ -1,7 +1,8 @@
 #ifndef __CORE_HPP__
 #define __CORE_HPP__
 
-#include "compatibility.hpp"
+#include <type_traits>
+//#include "compatibility.hpp"
 
 namespace curtains::impl {
 
@@ -15,7 +16,7 @@ namespace curtains::impl {
   struct invoke_m {};
 
   template <template <class...> class M, class ...Ts>
-  struct invoke_m<void_t<M<Ts...>>,M,Ts...> : id_c<M<Ts...>> {};
+  struct invoke_m<std::void_t<M<Ts...>>,M,Ts...> : id_c<M<Ts...>> {};
 
   template <class F, class ...Ts>
   using invoke = typename F::template m_invoke<Ts...>;
