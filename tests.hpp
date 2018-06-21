@@ -446,6 +446,9 @@ static_assert(is_same_v<ic<true>,eval<and_,ic<true>,ic<true>>>);
 static_assert(is_same_v<ic<true>,eval<or_,ic<false>,ic<true>>>);
 static_assert(is_same_v<ic<false>,eval<or_,ic<false>,ic<false>>>);
 
+using liftAF = eval<compose,S,const_>;   // liftA for ((->)r)
+static_assert(is_same_v<ic<3>,eval<liftAF,succ,succ,ic<1>>>);
+
 #ifdef CURTAINS_N
 static_assert(is_same_v<ic<0>,eval<arity,void>>);
 static_assert(is_same_v<ic<1>,eval<arity,id>>);
