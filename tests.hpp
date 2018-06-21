@@ -5,6 +5,7 @@
 #include "curtains.hpp"
 #include "ackermann.hpp"
 #include "arith.hpp"
+#include "logical.hpp"
 #include "arity.hpp"
 #include "util.hpp"
 #include "zero.hpp"
@@ -437,6 +438,13 @@ static_assert( 1 == eval<fact,ic<1>>{});
 static_assert( 2 == eval<fact,ic<2>>{});
 static_assert( 6 == eval<fact,ic<3>>{});
 static_assert( 2 == eval<succ,eval<succ,ic<0>>>::value);
+
+// logical
+static_assert(is_same_v<ic<true>,eval<not_,ic<false>>>);
+static_assert(is_same_v<ic<false>,eval<and_,ic<false>,ic<true>>>);
+static_assert(is_same_v<ic<true>,eval<and_,ic<true>,ic<true>>>);
+static_assert(is_same_v<ic<true>,eval<or_,ic<false>,ic<true>>>);
+static_assert(is_same_v<ic<false>,eval<or_,ic<false>,ic<false>>>);
 
 #ifdef CURTAINS_N
 static_assert(is_same_v<ic<0>,eval<arity,void>>);

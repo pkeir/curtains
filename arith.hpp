@@ -5,8 +5,8 @@
 
 namespace curtains::impl {
 
-  template <class>        struct pred_c;
   template <class>        struct succ_c;
+  template <class>        struct pred_c;
   template <class, class> struct add_c;
   template <class, class> struct subtract_c;
   template <class, class> struct mul_c;
@@ -17,8 +17,8 @@ namespace curtains::impl {
 
 namespace curtains::v {
 
-  using pred     = quote_c<impl::pred_c>;
   using succ     = quote_c<impl::succ_c>;
+  using pred     = quote_c<impl::pred_c>;
   using add      = quote_c<impl::add_c>;
   using subtract = quote_c<impl::subtract_c>;
   using mul      = quote_c<impl::mul_c>;
