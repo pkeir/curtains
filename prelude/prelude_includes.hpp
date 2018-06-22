@@ -14,5 +14,7 @@
 #include "prelude/dollar.hpp"
 #include "prelude/fix.hpp"
 #include "prelude/tree.hpp"
+#include "prelude/arith.hpp"
+#include "prelude/logical.hpp"
 
 #endif // __PRELUDE_INCLUDES_HPP__

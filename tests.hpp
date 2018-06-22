@@ -4,8 +4,8 @@
 
 #include "curtains.hpp"
 #include "ackermann.hpp"
-#include "arith.hpp"
-#include "logical.hpp"
+//#include "arith.hpp"
+//#include "logical.hpp"
 #include "arity.hpp"
 #include "util.hpp"
 #include "zero.hpp"
