@@ -25,6 +25,9 @@ using std::is_same_v;
 
 static_assert(is_same_v<id,eval<>>);
 static_assert(is_same_v<int,eval<int>>);
+static_assert(is_same_v<std::true_type,ic<true>>);
+static_assert(is_same_v<std::false_type,ic<false>>);
+static_assert(is_same_v<std::integral_constant<int,42>,ic<42>>);
 
 #ifdef CURTAINS_V
 template <class T, class U>
@@ -384,17 +387,17 @@ static_assert(is_same_v<double,eval<dollar,id,id,double>>);
 static_assert(is_same_v<ic<1>,eval<eval<flip,dollar,ic<0>>,succ>>);
 // static_assert( 2 == eval<dollar,succ,succ,ic<0>>::value); // see dollar.hpp
 
-// if_
-static_assert(is_same_v<int,  eval<if_,std::true_type, list<int>,list<float>>>);
-static_assert(is_same_v<float,eval<if_,std::false_type,list<int>,list<float>>>);
+// lazy_if_
+static_assert(is_same_v<int,  eval<lazy_if_,ic<true>, list<int>,list<float>>>);
+static_assert(is_same_v<float,eval<lazy_if_,ic<false>,list<int>,list<float>>>);
 static_assert(is_same_v<int,eval<
-                              if_,
+                              lazy_if_,
                               std::true_type,
                               list<int>,
                               list<rec_err,ic<3>>
                             >>);
 static_assert(is_same_v<int,eval<
-                              if_,
+                              lazy_if_,
                               std::false_type,
                               list<rec_err,ic<3>>,
                               list<int>
@@ -438,16 +441,86 @@ static_assert( 1 == eval<fact,ic<1>>{});
 static_assert( 2 == eval<fact,ic<2>>{});
 static_assert( 6 == eval<fact,ic<3>>{});
 static_assert( 2 == eval<succ,eval<succ,ic<0>>>::value);
+static_assert( true  == eval<odd,ic<7>>::value );
+static_assert( false == eval<even,ic<7>>{} );
+static_assert( true  == eval<gt,ic<2>,ic<1>>{} );
+static_assert( false == eval<lt,ic<2>,ic<1>>{} );
+static_assert( true  == eval<ge,ic<2>,ic<1>>{} );
+static_assert( true  == eval<ge,ic<2>,ic<2>>{} );
+static_assert( true  == eval<le,ic<2>,ic<2>>{} );
+static_assert( true  == eval<le,ic<1>,ic<2>>{} );
+static_assert( true  == eval<eval<le,ic<1>>,ic<2>>{} );
+static_assert( 2     == eval<max,ic<1>,ic<2>>{} );
+static_assert( 1     == eval<min,ic<1>,ic<2>>{} );
 
 // logical
-static_assert(is_same_v<ic<true>,eval<not_,ic<false>>>);
+static_assert(is_same_v<ic<true>, eval<not_,ic<false>>>);
 static_assert(is_same_v<ic<false>,eval<and_,ic<false>,ic<true>>>);
-static_assert(is_same_v<ic<true>,eval<and_,ic<true>,ic<true>>>);
-static_assert(is_same_v<ic<true>,eval<or_,ic<false>,ic<true>>>);
-static_assert(is_same_v<ic<false>,eval<or_,ic<false>,ic<false>>>);
+static_assert(is_same_v<ic<true>, eval<and_,ic<true>, ic<true>>>);
+static_assert(is_same_v<ic<true>, eval<or_, ic<false>,ic<true>>>);
+static_assert(is_same_v<ic<false>,eval<or_, ic<false>,ic<false>>>);
 
 using liftAF = eval<compose,S,const_>;   // liftA for ((->)r)
 static_assert(is_same_v<ic<3>,eval<liftAF,succ,succ,ic<1>>>);
+
+#ifndef CURTAINS_N
+// Variable arity version of liftA for functions. Requires a list for now.
+template <class, class> struct liftAFN_c;
+template <class F, class ...Ts>
+struct liftAFN_c<F,list<Ts...>>
+     : impl::id_c<eval<foldl,S,eval<const_,F>,list<Ts...>>> {};
+using liftAFN = quote_c<liftAFN_c>;
+
+static_assert(is_same_v<ic<2>,eval<const_,succ,void,ic<1>>>);
+static_assert(is_same_v<ic<3>,eval<S,eval<const_,succ>,succ,ic<1>>>);
+static_assert(is_same_v<
+                ic<2>,
+                eval<eval<foldl,S,eval<const_,succ>,list<>>,void,ic<1>>
+              >);
+// For ((->)r): pure ≡ const and also (<*>) ≡ S
+// pure succ <*> succ  ≡ const succ `S` succ
+static_assert(is_same_v<
+                ic<3>,
+                eval<eval<foldl,S,eval<const_,succ>,list<succ>>,ic<1>>
+              >);
+static_assert(is_same_v<
+                ic<3>,
+                eval<foldl,S,eval<const_,succ>,list<succ>,ic<1>>
+              >);
+static_assert(3 == eval<liftAFN,succ,list<succ>,ic<1>>{});
+
+// pure not <*> (==1)  ≡ const not `S` (==1)
+static_assert(is_same_v<
+                ic<false>,
+                eval<foldl,S,eval<const_,not_>,list<eval<eq,ic<1>>>,ic<1>>
+              >);
+static_assert(false == eval<liftAFN,not_,list<eval<eq,ic<1>>>,ic<1>>{} );
+
+// pure (&&) <*> (>1) <*> odd ≡ const (&&) `S` (>1) `S` odd
+static_assert(is_same_v<
+                ic<true>,
+                eval<
+                  foldl,
+                  S,
+                  eval<const_,and_>,
+                  list<eval<flip,gt,ic<1>>,odd>,
+                  ic<3>
+                >
+              >);
+static_assert(true == eval<liftAFN,and_,list<eval<flip,gt,ic<1>>,odd>,ic<3>>{});
+
+// pure max <*> succ <*> pred ≡ const max `S` succ `S` pred
+static_assert(is_same_v<
+                ic<4>,
+                eval<foldl,S,eval<const_,max>,list<succ,pred>,ic<3>>
+              >);
+static_assert(4 == eval<liftAFN,max,list<succ,pred>,ic<3>>{});
+
+// Prelude Control.Applicative> let if' c x y = if c then x else y
+// Prelude Control.Applicative> pure if' <*> odd <*> id <*> succ $ 7
+static_assert(8==eval<liftAFN,if_,list<odd,succ,id>,ic<7>>{});
+
+#endif
 
 #ifdef CURTAINS_N
 static_assert(is_same_v<ic<0>,eval<arity,void>>);
