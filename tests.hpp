@@ -4,8 +4,6 @@
 
 #include "curtains.hpp"
 #include "ackermann.hpp"
-//#include "arith.hpp"
-//#include "logical.hpp"
 #include "arity.hpp"
 #include "util.hpp"
 #include "zero.hpp"
@@ -463,6 +461,10 @@ static_assert(is_same_v<ic<false>,eval<or_, ic<false>,ic<false>>>);
 using liftAF = eval<compose,S,const_>;   // liftA for ((->)r)
 static_assert(is_same_v<ic<3>,eval<liftAF,succ,succ,ic<1>>>);
 
+template <class F, class T, class U>
+using liftAF2_t = eval<foldl,S,eval<const_,F>,list<T,U>>;
+using liftAF2 = quote<liftAF2_t>;
+
 #ifndef CURTAINS_N
 // Variable arity version of liftA for functions. Requires a list for now.
 template <class, class> struct liftAFN_c;
@@ -487,6 +489,7 @@ static_assert(is_same_v<
                 ic<3>,
                 eval<foldl,S,eval<const_,succ>,list<succ>,ic<1>>
               >);
+static_assert(3 == eval<liftAF,succ,succ,ic<1>>{});
 static_assert(3 == eval<liftAFN,succ,list<succ>,ic<1>>{});
 
 // pure not <*> (==1)  ≡ const not `S` (==1)
@@ -507,6 +510,7 @@ static_assert(is_same_v<
                   ic<3>
                 >
               >);
+static_assert(true == eval<liftAF2,and_,eval<flip,gt,ic<1>>,odd,ic<3>>{});
 static_assert(true == eval<liftAFN,and_,list<eval<flip,gt,ic<1>>,odd>,ic<3>>{});
 
 // pure max <*> succ <*> pred ≡ const max `S` succ `S` pred
@@ -514,6 +518,7 @@ static_assert(is_same_v<
                 ic<4>,
                 eval<foldl,S,eval<const_,max>,list<succ,pred>,ic<3>>
               >);
+static_assert(4 == eval<liftAF2,max,succ,pred,ic<3>>{});
 static_assert(4 == eval<liftAFN,max,list<succ,pred>,ic<3>>{});
 
 // Prelude Control.Applicative> let if' c x y = if c then x else y
