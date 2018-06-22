@@ -312,6 +312,13 @@ static_assert(is_same_v<std::false_type,eval<eq,int,char>>);
 // flip
 static_assert(is_same_v<int,eval<flip,const_,float,int>>);
 
+// all
+static_assert(true  == eval<all,odd,list<ic<1>,ic<3>,ic<5>,ic<7>>>{});
+#ifndef CURTAINS_N
+static_assert(true  == eval<quote_c<std::is_void>,void>{});
+static_assert(false == eval<all,quote_c<std::is_void>,list<int,void>>{});
+#endif
+
 // fix
 static_assert(typename impl::fix_fact_c<int, ic<0>>::type{} == 1);
 static_assert(typename impl::fix_fact_c<char,ic<0>>::type{} == 1);

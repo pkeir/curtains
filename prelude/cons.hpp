@@ -8,9 +8,6 @@ namespace curtains::impl {
   template <class, class>
     struct cons_c;
 
-  template <class T, template <class ...> class TT, class ...Ts>
-  struct cons_c<T,TT<Ts...>> : id_c<TT<T,Ts...>> {};
-
 } // namespace curtains
 
 namespace curtains::v {
@@ -24,5 +21,12 @@ namespace curtains::n {
   using cons = bases<v::cons,ic<2>>;
 
 } // namespace curtains::n
+
+namespace curtains::impl {
+
+  template <class T, class ...Ts>
+  struct cons_c<T,list<Ts...>> : id_c<list<T,Ts...>> {};
+
+}
 
 #endif // __CONS_HPP__
