@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Tested with:
-# GCC 8.1.1, 7.3.0, 7.2.0
+# GCC 9.0.0, 8.1.1, 7.3.0, 7.2.0
 # Clang 6.0.0, 4.0.1-6
  
 function test()
