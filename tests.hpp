@@ -21,6 +21,9 @@ namespace static_asserts {
 using namespace curtains;
 using std::is_same_v;
 
+#ifndef CURTAINS_V_SIMPLE
+static_assert(is_same_v<id,impl::v::invoke_if_t<id>>);
+#endif
 static_assert(is_same_v<id,eval<>>);
 static_assert(is_same_v<int,eval<int>>);
 static_assert(is_same_v<std::true_type,ic<true>>);

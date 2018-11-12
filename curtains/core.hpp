@@ -13,7 +13,7 @@ namespace curtains::impl {
   using id_t = typename id_c<T>::type;
 
   template <class, template <class...> class, class...>
-  struct iv1430{};
+  struct iv1430                                                 {};
 
   template <template <class...> class M, class ...Ts>
   struct iv1430<std::void_t<M<Ts...>>,M,Ts...> : id_c<M<Ts...>> {};
