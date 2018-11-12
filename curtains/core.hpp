@@ -13,10 +13,10 @@ namespace curtains::impl {
   using id_t = typename id_c<T>::type;
 
   template <class, template <class...> class, class...>
-  struct invoke_m {};
+  struct iv1430{};
 
   template <template <class...> class M, class ...Ts>
-  struct invoke_m<std::void_t<M<Ts...>>,M,Ts...> : id_c<M<Ts...>> {};
+  struct iv1430<std::void_t<M<Ts...>>,M,Ts...> : id_c<M<Ts...>> {};
 
   template <class F, class ...Ts>
   using invoke = typename F::template m_invoke<Ts...>;
@@ -28,13 +28,13 @@ namespace curtains {
   template <template <class...> class M>
   struct quote {
     template <class ...Us>
-    using m_invoke = typename impl::invoke_m<void,M,Us...>::type;
+    using m_invoke = typename impl::iv1430<void,M,Us...>::type;
   };
 
   template <template <class...> class M>
   struct quote_c {
     template <class...Ts>
-    using m_invoke = typename impl::invoke_m<void,M,Ts...>::type::type;
+    using m_invoke = typename impl::iv1430<void,M,Ts...>::type::type;
 //  using m_invoke = typename M<Ts...>::type; // Clang needs above long form
   };
 

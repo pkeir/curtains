@@ -15,7 +15,7 @@ namespace curtains::impl {
   struct invalid {
     template <class ...Us>
     using m_invoke = typename xt<
-                       impl::invoke_m<void,F::template m_invoke,Us...>
+                       impl::iv1430<void,F::template m_invoke,Us...>
                      >::type;
   };
 

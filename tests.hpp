@@ -39,7 +39,7 @@ struct const_test2 {
   template <class T, class U>
   using m_invokey = T;
   template <class ...Ts>
-  using m_invoke = typename impl::invoke_m<void,m_invokey,Ts...>::type;
+  using m_invoke = typename impl::iv1430<void,m_invokey,Ts...>::type;
 };
 static_assert(is_same_v<int,eval<const_test2,int,float>>);
 
@@ -75,7 +75,7 @@ struct composey
   template <class T>
   using m_invokey = eval<F,eval<G,T>>;
   template <class ...Ts>
-  using m_invoke = typename impl::invoke_m<void,m_invokey,Ts...>::type;
+  using m_invoke = typename impl::iv1430<void,m_invokey,Ts...>::type;
 };
 static_assert(is_same_v<float,eval<composey<id,id>,float>>);
 static_assert(is_same_v<int,eval<composey<const_,id>,int,char>>);
@@ -575,7 +575,7 @@ static_assert( std::is_same_v<void,is_same_tt<int,int>>);
 
 static_assert(!has_type_member_v<int>);
 static_assert( has_type_member_v<impl::id_c<int>>);
-static_assert( has_type_member_v<impl::invoke_m<void,impl::id_c,int>>);
+static_assert( has_type_member_v<impl::iv1430<void,impl::id_c,int>>);
 static_assert( has_type_member_v<impl::xt<int>>);
 static_assert(!has_type_member_v<impl::xt<impl::xt<int>>>);
 
