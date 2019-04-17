@@ -1,7 +1,7 @@
 #ifndef __ARITH_HPP__
 #define __ARITH_HPP__
 
-#include "curtains.hpp"
+#include "../curtains.hpp"
 
 namespace curtains::impl {
 

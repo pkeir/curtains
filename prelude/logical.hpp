@@ -1,7 +1,7 @@
 #ifndef __LOGICAL_HPP__
 #define __LOGICAL_HPP__
 
-#include "curtains.hpp"
+#include "../curtains.hpp"
 
 namespace curtains::impl {
 
