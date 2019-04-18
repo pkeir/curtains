@@ -12,10 +12,6 @@
 #include "swap.hpp"
 #include "y_combinator.hpp"
 
-// g++ -std=c++1z tests.hpp && g++ -DCURTAINS_N -std=c++1z tests.hpp
-// or
-// FILE=tests.hpp && g++ -std=c++1z $FILE && g++ -DCURTAINS_N -std=c++1z $FILE
-
 namespace static_asserts {
 
 using namespace curtains;
