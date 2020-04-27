@@ -1,6 +1,6 @@
 # curtains
 
-The code to accompany the paper:\
+The code to accompany the paper:
 
 Intrinsic Currying for C++ Template Metaprograms\
 Paul Keir, Andrew Gozillon, Seyed H. Haeri (Hossein)\
